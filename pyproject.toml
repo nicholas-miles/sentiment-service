@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "sentiment-service"
+version = "0.1.0"
+description = "first production-ready micro-service"
+authors = ["Nicholas Miles <nicholas.miles6@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
