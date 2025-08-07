@@ -10,9 +10,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 
 
-def main() -> None:
+def train_model():
     """
     Train a sentiment analysis model using the SST-5 dataset.
+    Returns the trained model pipeline.
     """
     mlflow.set_experiment("sentiment-analysis")
     mlflow.sklearn.autolog(
@@ -53,6 +54,15 @@ def main() -> None:
     sha = hashlib.sha1(open(model_path, "rb").read()).hexdigest()[:8]
     mlflow.log_param("model_sha", sha)
     print(f"[✓] model saved ➜ {model_path} (sha:{sha})")
+
+    return pipe
+
+
+def main() -> None:
+    """
+    Train a sentiment analysis model using the SST-5 dataset.
+    """
+    train_model()
 
 
 if __name__ == "__main__":
