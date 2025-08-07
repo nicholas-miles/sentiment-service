@@ -38,6 +38,9 @@ jobs:
       - name: Train model
         run: poetry run python src/sentiment_service/training/train.py
         
+      - name: Run tests
+        run: poetry run pytest
+        
       - name: Test API
         run: |
           poetry run uvicorn sentiment_service.api.main:app --host 0.0.0.0 --port 8000 &
