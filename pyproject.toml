@@ -16,7 +16,30 @@ fastapi = "^0.116.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.6.0"
+ruff = "^0.3.0"
 
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sentiment_service"]
 
 [build-system]
 requires = ["poetry-core"]

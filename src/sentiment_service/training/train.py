@@ -1,12 +1,13 @@
-import pickle
 import hashlib
+import pickle
+
 import mlflow
 from sklearn.datasets import fetch_openml
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import make_pipeline
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
 
 
 def main() -> None:
