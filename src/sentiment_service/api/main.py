@@ -11,6 +11,17 @@ app = FastAPI(
     contact={"name": "Nicholas Miles"},
 )
 
+
+@app.get("/")
+def root():
+    return {"message": "Sentiment Analysis API", "docs": "/docs"}
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
 @app.post("/predict", response_model=SentimentOut)
 def predict(inp: SentimentIn):
     try:
@@ -18,4 +29,13 @@ def predict(inp: SentimentIn):
     except Exception as e:  # pragma: no cover
         raise HTTPException(status_code=400, detail=str(e))
     idx = int(proba.argmax())
-    return {"prediction": ["very negative", "negative", "neutral", "positive", "very positive"][idx], "score": float(proba[idx])}
+    return {
+        "prediction": [
+            "very negative",
+            "negative",
+            "neutral",
+            "positive",
+            "very positive",
+        ][idx],
+        "score": float(proba[idx]),
+    }
