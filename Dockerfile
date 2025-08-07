@@ -10,10 +10,13 @@ RUN apt-get update && apt-get install -y \
 # Install Poetry
 RUN pip install poetry==1.8.3
 
-# Set Poetry to not create virtual environment (we'll create our own)
+# Set Poetry configuration
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VENV_IN_PROJECT=1 \
     POETRY_CACHE_DIR=/tmp/poetry_cache
+
+# Set working directory
+WORKDIR /app
 
 # Copy dependency files
 COPY pyproject.toml poetry.lock ./
@@ -33,15 +36,15 @@ RUN apt-get update && apt-get install -y \
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app
 
+# Set working directory
+WORKDIR /app
+
 # Copy virtual environment from builder
 COPY --from=builder /app/.venv /app/.venv
 
 # Copy application code
 COPY src/ /app/src/
 COPY pyproject.toml /app/
-
-# Set working directory
-WORKDIR /app
 
 # Activate virtual environment
 ENV PATH="/app/.venv/bin:$PATH"
