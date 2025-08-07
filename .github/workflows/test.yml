@@ -35,7 +35,9 @@ jobs:
         run: poetry install --no-interaction
         
       - name: Train model
-        run: poetry run python src/sentiment_service/training/train.py
+        run: |
+          export MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+          poetry run python src/sentiment_service/training/train.py
         
       - name: Run tests
         run: poetry run pytest
