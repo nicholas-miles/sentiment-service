@@ -36,16 +36,27 @@ poetry run uvicorn sentiment_service.api.main:app --reload
 
 ### Option 2: Docker
 
+#### Development (Recommended)
 ```bash
 # Clone the repository
 git clone <your-repo-url>
 cd sentiment-service
 
-# Build and run with Docker Compose
+# Build and run with Docker Compose (uses simple build)
 docker-compose up --build
+```
 
-# Or build and run manually
-docker build -t sentiment-service .
+#### Production
+```bash
+# Build and run with production multi-stage build
+docker build -f Dockerfile.production -t sentiment-service-prod .
+docker run -p 8000:8000 sentiment-service-prod
+```
+
+#### Manual Simple Build
+```bash
+# Build and run manually
+docker build -f Dockerfile.simple -t sentiment-service .
 docker run -p 8000:8000 sentiment-service
 ```
 

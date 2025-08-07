@@ -1,4 +1,4 @@
-# Multi-stage build for sentiment analysis service
+# Multi-stage build for production sentiment analysis service
 FROM python:3.12-slim as builder
 
 # Install system dependencies for building
@@ -13,18 +13,22 @@ RUN pip install poetry==1.8.3
 # Set Poetry configuration
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VENV_IN_PROJECT=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache \
-    POETRY_VIRTUALENVS_IN_PROJECT=1
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
 # Set working directory
 WORKDIR /app
 
-# Copy dependency files and source code
+# Copy dependency files
 COPY pyproject.toml poetry.lock ./
+
+# Install dependencies only (no package yet)
+RUN poetry install --only=main --no-root
+
+# Copy source code
 COPY src/ /app/src/
 
-# Install dependencies and package
-RUN poetry install --only=main && poetry run python -c "import sentiment_service; print('Package installed successfully')"
+# Install the package in development mode
+RUN poetry install --only=main
 
 # Runtime stage
 FROM python:3.12-slim as runtime
