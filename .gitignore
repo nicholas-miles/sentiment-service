@@ -39,3 +39,6 @@ poetry.lock
 # OS
 .DS_Store
 Thumbs.db
+
+# mlflow
+mlruns/

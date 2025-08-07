@@ -3,10 +3,16 @@ name = "sentiment-service"
 version = "0.1.0"
 description = "first production-ready micro-service"
 authors = ["Nicholas Miles <nicholas.miles6@gmail.com>"]
-readme = "README.md"
+packages = [{include = "sentiment_service", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+scikit-learn = "^1.7.1"
+pandas = "^2.3.1"
+mlflow = "^3.2.0"
+black = "^25.1.0"
+pydantic = "^2.11.7"
+fastapi = "^0.116.1"
 
 
 [build-system]
