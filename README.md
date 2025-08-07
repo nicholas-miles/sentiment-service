@@ -14,10 +14,10 @@ A production-ready microservice for sentiment analysis using FastAPI and scikit-
 
 ### Prerequisites
 
-- Python 3.12+
-- Poetry
+- Python 3.12+ and Poetry, OR
+- Docker and Docker Compose
 
-### Installation
+### Option 1: Local Development
 
 ```bash
 # Clone the repository
@@ -32,6 +32,21 @@ poetry run python src/sentiment_service/training/train.py
 
 # Start the API server
 poetry run uvicorn sentiment_service.api.main:app --reload
+```
+
+### Option 2: Docker
+
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd sentiment-service
+
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Or build and run manually
+docker build -t sentiment-service .
+docker run -p 8000:8000 sentiment-service
 ```
 
 ### API Usage
@@ -70,6 +85,21 @@ The hooks run automatically on commit, or manually:
 
 ```bash
 poetry run pre-commit run --all-files
+```
+
+### Docker Development
+
+For consistent development environments, you can use Docker:
+
+```bash
+# Build the image
+docker build -t sentiment-service .
+
+# Run with volume mounting for development
+docker run -p 8000:8000 -v $(pwd)/src:/app/src sentiment-service
+
+# Or use docker-compose for easier management
+docker-compose up --build
 ```
 
 ### Project Structure
