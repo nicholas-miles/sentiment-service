@@ -3,6 +3,7 @@ name = "sentiment-service"
 version = "0.1.0"
 description = "first production-ready micro-service"
 authors = ["Nicholas Miles <nicholas.miles6@gmail.com>"]
+readme = "README.md"
 packages = [{include = "sentiment_service", from = "src"}]
 
 [tool.poetry.dependencies]
